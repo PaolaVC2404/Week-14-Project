@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
@@ -38,12 +39,21 @@ public class PlayerController : MonoBehaviour
 
     public void LoseALife()
     {
+        if (shieldPrefab.activeSelf)
+        {
+            shieldPrefab.SetActive(false);
+            gameManager.PlaySound(2);
+        }
+        else
+        {
+            shieldPrefab.active = false;
+            lives -= 1;
+            gameManager.ChangeLivesText(lives);
+        }
         //Do I have a shield? If yes: do not lose a life, but instead deactivate the shield's visibility
         //If not: lose a life
         //lives = lives - 1;
         //lives -= 1;
-        lives--;
-        gameManager.ChangeLivesText(lives);
         if (lives == 0)
         {
             Instantiate(explosionPrefab, transform.position, Quaternion.identity);
@@ -97,10 +107,16 @@ public class PlayerController : MonoBehaviour
                     break;
                 case 4:
                     //Picked up shield
-                    //Do I already have a shield?
-                    //If yes: do nothing
-                    //If not: activate the shield's visibility
                     gameManager.ManagePowerupText(4);
+                    if (shieldPrefab.activeSelf == true)
+                    {
+                        //Do nothing
+                    }
+                    else if (shieldPrefab.activeSelf == false)
+                    {
+                        shieldPrefab.SetActive(true);
+                        gameManager.PlaySound(1);
+                    }
                     break;
             }
         }

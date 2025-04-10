@@ -163,8 +163,8 @@ MonoBehaviour:
   livesText: {fileID: 999943548}
   scoreText: {fileID: 687267809}
   powerupText: {fileID: 1339041341}
-  horizontalScreenSize: 0
-  verticalScreenSize: 0
+  horizontalScreenSize: 10
+  verticalScreenSize: 6.5
   score: 0
   cloudMove: 0
 --- !u!4 &194126355
